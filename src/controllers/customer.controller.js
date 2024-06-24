@@ -1,10 +1,5 @@
 const Customer = require("../models/Customer");
 
-
-module.exports.generateURL = async (req,res,next) => {
-  
-}
-
 // @Dec: Login
 // @Access: Private
 // @Method: POST
@@ -20,16 +15,12 @@ module.exports.loginUser = async (req, res, next) => {
     // check if user exit
     const userCheck = await Customer.findOne({ email });
     if (userCheck) {
-      const verifyPassword = await bcrypt.compare(pass, userCheck.password);
-      if (verifyPassword) {
-        const { password, createdAt, updatedAt, ...others } = userCheck._doc;
-        return res.status(200).send({ user: others });
+        return res.status(200).send({ user: userCheck });
       } else {
-        return res.status(401).send({ message: "Invalid Email or password is invalid" });
-      }
-    } else {
-      return res.status(401).send({ message: "Invalid Email or password is invalid" });
-    }
+        // save the email first
+       const user = await Customer.create({ email });
+        return res.status(200).send({ user });
+    } 
   } catch (error) {
     next(error);
   }
