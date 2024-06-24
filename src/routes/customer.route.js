@@ -8,10 +8,10 @@ const {
 
 const CustomerRouter = Router();
 
-Customer.get("/auth/google",loginwithGoogle);
+CustomerRouter.get("/auth/google",loginwithGoogle);
 
 
-Customer.get("/auth/google/callback",loginGoogle);
+CustomerRouter.get("/auth/google/callback",loginGoogle);
 
 // @Dec: Login user
 // @Method: POST
