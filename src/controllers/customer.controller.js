@@ -36,12 +36,12 @@ module.exports.loginGoogle = async (req, res,next) => {
       headers: { Authorization: `Bearer ${access_token}` },
     });
 
-    console.log(profile);
+    // console.log(profile);
 
-    res.redirect('https://investments-one.netlify.app/research-portal');
+    res.redirect(`https://investments-one.netlify.app/research-portal/${profile.id}`);
   } catch (error) {
     next(error);
-  }
+  } 
 }
 
 // @Dec: Login
