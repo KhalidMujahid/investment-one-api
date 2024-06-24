@@ -1,9 +1,9 @@
 const axios = require('axios');
 const Customer = require("../models/Customer");
 
-const CLIENT_ID = 'YOUR_CLIENT_ID';
-const CLIENT_SECRET = 'YOUR_CLIENT_SECRET';
-const REDIRECT_URI = '<https://investment-one-api.onrender.com/auth/google/callback>';
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
+const REDIRECT_URI = 'https://investment-one-api.onrender.com/auth/google/callback';
 
 
 // @Dec: google
