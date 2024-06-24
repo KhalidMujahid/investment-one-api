@@ -38,7 +38,7 @@ module.exports.loginGoogle = async (req, res,next) => {
 
     console.log(profile);
 
-    res.redirect('/');
+    res.redirect('https://investments-one.netlify.app/research-portal');
   } catch (error) {
     next(error);
   }
