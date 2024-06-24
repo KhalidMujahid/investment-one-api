@@ -36,6 +36,8 @@ module.exports.loginGoogle = async (req, res,next) => {
       headers: { Authorization: `Bearer ${access_token}` },
     });
 
+    console.log(profile);
+
     res.redirect('/');
   } catch (error) {
     next(error);
