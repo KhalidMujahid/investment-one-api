@@ -1,5 +1,10 @@
 const Customer = require("../models/Customer");
 
+
+module.exports.generateURL = async (req,res,next) => {
+  
+}
+
 // @Dec: Login
 // @Access: Private
 // @Method: POST
@@ -7,10 +12,10 @@ const Customer = require("../models/Customer");
 module.exports.loginUser = async (req, res, next) => {
   try {
     // validation
-    const { email, password: pass } = req.body;
+    const { email } = req.body;
 
-    if (!email || !pass)
-      return res.status(400).send({ message: "Email or Password is required" });
+    if (!email)
+      return res.status(400).send({ message: "Email is required" });
 
     // check if user exit
     const userCheck = await Customer.findOne({ email });
