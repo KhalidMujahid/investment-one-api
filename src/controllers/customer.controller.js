@@ -72,7 +72,7 @@ module.exports.loginUser = async (req, res, next) => {
 from: process.env.USER,
   to: email,
   subject: 'Investment One',
-  text: 'Generated link'
+  text: 'Generated link',
   html: '<b>Hey there! </b> <br> <a href="https://investments-one.netlify.app/research-portal">Login</a>',
 };
 
