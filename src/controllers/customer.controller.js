@@ -84,7 +84,6 @@ module.exports.loginUser = async (req, res, next) => {
   })
   .then((data) => res.status(200).send(data))
   .catch((error) => res.status(400).send(error));
-});
   } catch (error) {
     next(error);
   }
