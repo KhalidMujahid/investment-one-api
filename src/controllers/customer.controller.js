@@ -73,7 +73,7 @@ from: process.env.USER,
   to: email,
   subject: 'Investment One',
   text: 'Generated link',
-  html: '<b>Hey there! </b> <br> <a href="https://investments-one.netlify.app/research-portal">Login</a>',
+  html: '<b>Hey there! </b> <br> <a href="https://investments-one.netlify.app/redirect/confirm-signup">Login</a>',
 };
 
    transporter.sendMail(mailOptions, function (err, info) {
