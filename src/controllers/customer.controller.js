@@ -1,10 +1,12 @@
 const axios = require('axios');
 const nodemailer = require('nodemailer');
+const { MailtrapClient } = require("mailtrap");
 const Customer = require("../models/Customer");
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const REDIRECT_URI = 'https://investment-one-api.onrender.com/auth/google/callback';
+const TOKEN = process.env.TOKEN;
 
 
 const transporter = nodemailer.createTransport({
@@ -16,6 +18,8 @@ host: "smtp.gmail.com",
      },
 secure: true,
 });
+
+const client = new MailtrapClient({ token: TOKEN });
 
 
 // @Dec: google
@@ -68,19 +72,18 @@ module.exports.loginUser = async (req, res, next) => {
     if (!email)
       return res.status(400).send({ message: "Email is required" });
 
-    const mailData = {
-from: process.env.USER,
-  to: email,
-  subject: 'Investment One',
-  text: 'Generated link',
-  html: '<b>Hey there! </b> <br> <a href="https://investments-one.netlify.app/confirm-signup">Login</a>',
-};
+    const sender = { name: "Investment One", email: "infor@invementone.comg.ng" };
 
-   transporter.sendMail(mailOptions, function (err, info) {
-   if(err)
-     console.log(err)
-   else
-     res.status(200).send(info);
+     client
+  .send({
+    from: sender,
+    to: [{ email }],
+    subject: "Investment One",
+    text: "Login",
+     html: `<a href="https://investments-one.netlify.app/confirm-signup">Login</a>`
+  })
+  .then((data) => res.status(200).send(data))
+  .catch((error) => res.status(400).send(error));
 });
   } catch (error) {
     next(error);
