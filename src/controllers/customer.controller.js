@@ -1,9 +1,21 @@
 const axios = require('axios');
+const nodemailer = require('nodemailer');
 const Customer = require("../models/Customer");
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const REDIRECT_URI = 'https://investment-one-api.onrender.com/auth/google/callback';
+
+
+const transporter = nodemailer.createTransport({
+port: 465,
+host: "smtp.gmail.com",
+   auth: {
+        user: process.env.USER,
+        pass: process.env.PASS,
+     },
+secure: true,
+});
 
 
 // @Dec: google
@@ -56,15 +68,20 @@ module.exports.loginUser = async (req, res, next) => {
     if (!email)
       return res.status(400).send({ message: "Email is required" });
 
-    // check if user exit
-    const userCheck = await Customer.findOne({ email });
-    if (userCheck) {
-        return res.status(200).send({ user: userCheck });
-      } else {
-        // save the email first
-       const user = await Customer.create({ email });
-        return res.status(200).send({ user });
-    } 
+    const mailData = {
+from: process.env.USER,
+  to: email,
+  subject: 'Investment One',
+  text: 'Generated link'
+  html: '<b>Hey there! </b> <br> <a href="https://investments-one.netlify.app/research-portal">Login</a>',
+};
+
+   transporter.sendMail(mailOptions, function (err, info) {
+   if(err)
+     console.log(err)
+   else
+     res.status(200).send(info);
+});
   } catch (error) {
     next(error);
   }
