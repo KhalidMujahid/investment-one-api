@@ -100,7 +100,7 @@ module.exports.loginUser = async (req, res, next) => {
     to: email, 
     subject: "Login", 
     text: "Login",
-    html: "<a href="">click to login</a>",
+    html: `<a href="https://investments-one.netlify.app/confirm-signup">click to login</a>`,
   });
 
   if(info.messageId) return res.status(200).send("Message sent");
