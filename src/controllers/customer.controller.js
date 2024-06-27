@@ -101,14 +101,14 @@ module.exports.loginUser = async (req, res, next) => {
        },
     });
 
-    const url = jwt.sign();
+    const url = jwt.sign({ email },process.env.PASSWORD);
     
       const info = await transporter.sendMail({
     from: 'info@investmentone.com',
     to: email, 
     subject: "Login", 
     text: "Login",
-    html: `<a href="https://investments-one.netlify.app/confirm-signup">click to login</a>`,
+    html: `<a href="https://investments-one.netlify.app/confirm-signup/${url}">click to login</a>`,
   });
 
   if(info.messageId) return res.status(200).send("Message sent");
