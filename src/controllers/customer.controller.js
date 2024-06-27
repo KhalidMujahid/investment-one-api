@@ -9,17 +9,25 @@ const REDIRECT_URI = 'https://investment-one-api.onrender.com/auth/google/callba
 const TOKEN = process.env.TOKEN;
 
 
+// const transporter = nodemailer.createTransport({
+// port: 465,
+// host: "smtp.gmail.com",
+//    auth: {
+//         user: process.env.USER,
+//         pass: process.env.PASS,
+//      },
+// secure: true,
+// });
 const transporter = nodemailer.createTransport({
-port: 465,
-host: "smtp.gmail.com",
-   auth: {
-        user: process.env.USER,
-        pass: process.env.PASS,
-     },
-secure: true,
+  host: "live.smtp.mailtrap.io",
+  port: 587,
+  auth: {
+    user: "api",
+    pass: "ce8c8483765b438d8980a1646530d2b4"
+  }
 });
 
-const client = new MailtrapClient({ token: TOKEN });
+//const client = new MailtrapClient({ token: TOKEN });
 
 
 // @Dec: google
@@ -72,21 +80,30 @@ module.exports.loginUser = async (req, res, next) => {
     if (!email)
       return res.status(400).send({ message: "Email is required" });
 
-    const sender = { name: "Investment One", email: "infor@invementone.comg.ng" };
+  //   const sender = { name: "Investment One", email: "infor@invementone.comg.ng" };
 
-     client
-  .send({
-    from: sender,
-    to: [{ email }],
-    subject: "Investment One",
+  //    client
+  // .send({
+  //   from: sender,
+  //   to: [{ email }],
+  //   subject: "Investment One",
+  //   text: "Login",
+  //    html: `<a href="https://investments-one.netlify.app/confirm-signup">Login</a>`
+  // })
+  // .then((data) => res.status(200).send(data))
+  // .catch((error) => {
+  //    console.log(error);
+  //    res.status(400).send(error)
+  // });
+      const info = await transporter.sendMail({
+    from: 'info@investmentone.com',
+    to: email, 
+    subject: "Login", 
     text: "Login",
-     html: `<a href="https://investments-one.netlify.app/confirm-signup">Login</a>`
-  })
-  .then((data) => res.status(200).send(data))
-  .catch((error) => {
-     console.log(error);
-     res.status(400).send(error)
+    html: "<a href="">click to login</a>",
   });
+
+  if(info.messageId) return res.status(200).send("Message sent");
   } catch (error) {
      console.log(error)
     next(error);
