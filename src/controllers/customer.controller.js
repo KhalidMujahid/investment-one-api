@@ -1,5 +1,6 @@
 const axios = require('axios');
 const nodemailer = require('nodemailer');
+const jwt = require("jsonwebtoken");
 const { MailtrapClient } = require("mailtrap");
 const Customer = require("../models/Customer");
 
@@ -18,14 +19,7 @@ const TOKEN = process.env.TOKEN;
 //      },
 // secure: true,
 // });
-const transporter = nodemailer.createTransport({
-  host: "live.smtp.mailtrap.io",
-  port: 587,
-  auth: {
-    user: "api",
-    pass: "ce8c8483765b438d8980a1646530d2b4"
-  }
-});
+
 
 //const client = new MailtrapClient({ token: TOKEN });
 
@@ -94,7 +88,21 @@ module.exports.loginUser = async (req, res, next) => {
   // .catch((error) => {
   //    console.log(error);
   //    res.status(400).send(error)
+    
   // });
+    // send mail
+   const transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
+        auth: {
+          user: process.env.USERNAME,
+          pass: process.env.PASSWORD
+       },
+    });
+
+    const url = jwt.sign();
+    
       const info = await transporter.sendMail({
     from: 'info@investmentone.com',
     to: email, 
