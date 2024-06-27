@@ -97,7 +97,7 @@ module.exports.loginUser = async (req, res, next) => {
         secure: true,
         auth: {
           user: "binkhalid267@gmail.com",
-          pass: "qrtz ynvm flhq zf"
+          pass: "lgln urgb jbsk nuyn"
        },
     });
 
