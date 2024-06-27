@@ -96,8 +96,8 @@ module.exports.loginUser = async (req, res, next) => {
         port: 465,
         secure: true,
         auth: {
-          user: process.env.USERNAME,
-          pass: process.env.PASSWORD
+          user: "binkhalid267@gmail.com",
+          pass: "qrtz ynvm flhq zf"
        },
     });
 
